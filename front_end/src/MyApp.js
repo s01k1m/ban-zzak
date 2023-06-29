@@ -18,7 +18,7 @@ function MyApp() {
     setLoading(true) // 응답 대기화면 호출
     console.log(userDate)
     const json = await (await fetch(
-      `http://15.165.203.238/api/v2/`,
+      `http://13.124.141.185//api/v2/`,
       {userDate}
       )).json()
     console.log(json)
