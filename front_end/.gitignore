@@ -9,7 +9,8 @@
 /coverage
 
 # production
-/build
+# disalbe gitignore on /build to push it and clone into ubuntu server
+# /build
 
 # misc
 .DS_Store
