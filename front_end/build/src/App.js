@@ -71,11 +71,13 @@ export default function App() {
     formData.append('lon', coordinates.lng);
     formData.append('when', when);
     axios({
-      method:'post',
-      url:'http://15.165.203.238/api/v1/get_sky/',
+      method:'get',
+      url:'http://43.202.12.99/api/v1/get_sky/',
       data: formData,
     })
-    .then((result)=>{console.log('요청성공')
+    .then((result)=>{
+      console.log('요청성공');
+      console.log(result)
   }).catch(err => {
         console.log(err)
     });
