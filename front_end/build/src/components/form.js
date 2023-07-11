@@ -14,7 +14,9 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import Autocomplete from "@mui/material/Autocomplete";
 
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import IconButton from "@mui/material/IconButton";
@@ -83,7 +85,7 @@ export default function Form() {
     formData.append("lon", coordinates.lng);
     formData.append("when", when);
     axios({
-      method: "post",
+      method: "get",
       url: "http://43.202.12.99/api/v1/get_sky/",
       data: formData,
     })
@@ -97,110 +99,88 @@ export default function Form() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      {/* <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-        <OutlinedInput
-          id="outlined-adornment-password"
-          type={showPassword ? "text" : "password"}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-          label="Password"
-        />
-      </FormControl> */}
-      <FormControl className="form">
-        <button type="button" onClick={findMyLocation}>
-          <GpsFixedIcon />
-        </button>
-        <span name="loading" className={show ? "show" : "not-show"}>
-          로딩중.. 기다려
-        </span>
-        <PlacesAutocomplete
-          value={address}
-          onChange={setAddress}
-          onSelect={handleSelect}
-        >
-          {({
-            getInputProps,
-            suggestions,
-            getSuggestionItemProps,
-            loading,
-          }) => (
-            <div className="auto-complete">
-              <input
-                {...getInputProps({ placeholder: "Type address" })}
-                endAdornment={
-                  <IconButton position="end">
-                    {" "}
-                    type="button" sx={{ p: "10px" }} aria-label="search">
-                    <GpsFixedIcon onClick={findMyLocation} />
-                  </IconButton>
-                }
-              />
-              <p>Latitude: {coordinates.lat}</p>
-              <p>Longitude: {coordinates.lng}</p>
+      <div id='formWrapper'>
+        <FormControl sx={{ mx: 'auto', p:1, width: 300 }} className="form">
+          <span name="loading" className={show ? "show" : "not-show"}>
+            당신의 위치를 가져오는 중..
+          </span>
+          <label for='coordinates'>
+            Latitude: {coordinates.lat}<br/>
+            Longitude: {coordinates.lng}</label>
+          <PlacesAutocomplete
+            value={address}
+            onChange={setAddress}
+            onSelect={handleSelect}
+          >
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading,
+            }) => (
+              <div className="auto-complete">
+                <TextField id='coordinates'
+                sx={{ width: 300}}  
+                  {...getInputProps({ placeholder: "Type address" })}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton sx={{ m: 0, p:0 }}aria-label="GpsFixedIcon" id='getlocation' onClick={findMyLocation}>
+                          <GpsFixedIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                <div classNAme="auto-list">
+                  {loading ? <div>...loading</div> : null}
+                  {suggestions.map((suggestion) => {
+                    const style = {
+                      // 선택되면
+                      backgroundColor: suggestion.active ? "#41b6e6" : "",
+                    };
 
-              <div classNAme="auto-list">
-                {loading ? <div>...loading</div> : null}
-                {suggestions.map((suggestion) => {
-                  const style = {
-                    // 선택되면
-                    backgroundColor: suggestion.active ? "#41b6e6" : "",
-                  };
-
-                  return (
-                    <div
-                      key={suggestion.description}
-                      {...getSuggestionItemProps(suggestion, { style })}
-                    >
-                      {suggestion.description}
-                    </div>
-                  );
-                })}
+                    return (
+                      <div
+                        key={suggestion.description}
+                        {...getSuggestionItemProps(suggestion, { style })}
+                      >
+                        {suggestion.description}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
-        </PlacesAutocomplete>
-        date: {dateValue}
-        <br></br>
-        time: {timeValue}
-        <br></br>
-        {when}
-        <DatePicker
-          disableFuture
-          onChange={(value) => {
-            console.log(value.format("YYYY-MM-DD"));
-            setDateValue(value.format("YYYY-MM-DD"));
-          }}
-          mask="____-__-__"
-          format="YYYY-MM-DD"
-          value={dateValue}
-          label="Birthday"
-        />
-        <br></br>
-        <TimePicker
-          onChange={(value) => {
-            console.log(value.format("HH:MM"));
-            setTimeValue(value.format("HH:MM"));
-          }}
-          ampm={false}
-          value={timeValue}
-          label="Birth Time"
-        />
-        <br></br>
-        <button type="submit" onClick={handleSubmit}>
-          submit
-        </button>
-      </FormControl>
+            )}
+          </PlacesAutocomplete>
+          <label for='birthday'>Birthday</label>
+          <DatePicker
+            id='birthday'
+            disableFuture
+            onChange={(value) => {
+              console.log(value.format("YYYY-MM-DD"));
+              setDateValue(value.format("YYYY-MM-DD"));
+            }}
+            mask="____-__-__"
+            format="YYYY-MM-DD"
+            value={dateValue}
+          />
+          <label for='birthtime'>Birth time</label>
+          <TimePicker
+            id='birthtime'
+            onChange={(value) => {
+              console.log(value.format("HH:MM"));
+              setTimeValue(value.format("HH:MM"));
+            }}
+            ampm={false}
+            value={timeValue}
+          />
+          <br></br>
+          <button type="submit" onClick={handleSubmit}>
+            submit
+          </button>
+        </FormControl>
+      </div>
     </LocalizationProvider>
   );
 }
