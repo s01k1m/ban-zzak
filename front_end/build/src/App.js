@@ -7,12 +7,12 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 
 export default function App() {
+  const [img64, setimg64] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [coordinates, setCoordinates] = React.useState({
     lat: null,
     lng: null
   });
-  
   const handleSelect = async value => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
@@ -74,10 +74,13 @@ export default function App() {
       method:'get',
       url:'http://43.202.12.99/api/v1/get_sky/',
       data: formData,
+      responseType: 'arraybuffer'
     })
-    .then((result)=>{
+    .then((response)=>{
       console.log('요청성공');
-      console.log(result)
+      const buffer64 = Buffer.from(response.data,'binary').toString('base64')
+      console.log(buffer64)
+      setimg64(buffer64)
   }).catch(err => {
         console.log(err)
     });
@@ -129,6 +132,7 @@ export default function App() {
       {when}
       <button type="submit" onClick={handleSubmit}>submit</button>
       </form>
+      {img64 != null && <img src = {`data:image;base64,${img64}`} alt="" />}
     </div>
   );
 }
