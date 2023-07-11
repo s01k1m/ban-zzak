@@ -3,8 +3,8 @@ import axios from 'axios';
 import './App.css'
 import Form from './components/form.js'
 import earth from './assets/earth.png'
+
 export default function App() {
-  
   return (
     <div className='App'>
 
