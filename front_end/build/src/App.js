@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Form from './components/form.js';
 import earth from './assets/earth.png';
-import arrow from './assets/arrow.png';
+// import arrow from './assets/arrow.png';
 
 export default function App() {
   useEffect(() => {

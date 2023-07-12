@@ -11,10 +11,10 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
-import Autocomplete from "@mui/material/Autocomplete";
+// import Autocomplete from "@mui/material/Autocomplete";
 
-import Box from "@mui/material/Box";
-import Button from '@mui/material/Button';
+// import Box from "@mui/material/Box";
+// import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -62,18 +62,18 @@ export default function Form() {
   // Get the birthday
   const [dateValue, setDateValue] = React.useState("");
 
-  const handleDate = (event) => {
-    setDateValue(event.target.value);
-    console.log("date:", dateValue);
-  };
+  // const handleDate = (event) => {
+  //   setDateValue(event.target.value);
+  //   console.log("date:", dateValue);
+  // };
 
   // Get the birth time
   const [timeValue, setTimeValue] = React.useState("");
-  const when = dateValue + " " + timeValue;
+  // const when = dateValue + " " + timeValue;
 
-  const handleTime = (event) => {
-    setTimeValue(event.target.value);
-  };
+  // const handleTime = (event) => {
+  //   setTimeValue(event.target.value);
+  // };
 
   // Combine the birthday and birth time to create JSON data to send to our backend API and Send it
   const handleSubmit = (e) => {
