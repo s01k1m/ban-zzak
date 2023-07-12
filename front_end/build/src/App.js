@@ -37,7 +37,7 @@ export default function App() {
         {/* <img src={arrow} className="arrow" alt="Arrow" /> */}
       </p>
       <div className="stars"></div>
-      <div className={`comspanonentForm ${showForm ? 'show' : 'not-show'}`}>
+      <div className={`componentform ${showForm ? 'show' : 'not-show'}`}>
         <Form />
       </div>
     </div>

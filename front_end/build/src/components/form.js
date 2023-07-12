@@ -11,6 +11,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
+
 // import Autocomplete from "@mui/material/Autocomplete";
 
 // import Box from "@mui/material/Box";
@@ -59,6 +60,8 @@ export default function Form() {
     }
   };
 
+  const [img64, setimg64] = React.useState("");
+
   // Get the birthday
   const [dateValue, setDateValue] = React.useState("");
 
@@ -78,7 +81,7 @@ export default function Form() {
   // Combine the birthday and birth time to create JSON data to send to our backend API and Send it
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log('click')
     const when = dateValue + "" + timeValue;
     const formData = new FormData();
     formData.append("lat", coordinates.lat);
@@ -88,9 +91,13 @@ export default function Form() {
       method: "get",
       url: "http://43.202.12.99/api/v1/get_sky/",
       data: formData,
+      // responseType: 'arraybuffer'
     })
       .then((result) => {
         console.log("요청성공");
+        const buffer64 = Buffer.from(result.data,'binary').toString('base64')
+        setimg64(buffer64)
+
       })
       .catch((err) => {
         console.log(err);
@@ -104,7 +111,7 @@ export default function Form() {
           <span name="loading" className={show ? "show" : "not-show"}>
             당신의 위치를 가져오는 중..
           </span>
-          <label for='coordinates'>
+          <label htmlFor='coordinates'>
             Latitude: {coordinates.lat}<br/>
             Longitude: {coordinates.lng}</label>
           <PlacesAutocomplete
@@ -132,7 +139,7 @@ export default function Form() {
                     ),
                   }}
                 />
-                <div classNAme="auto-list">
+                <div className="auto-list">
                   {loading ? <div>...loading</div> : null}
                   {suggestions.map((suggestion) => {
                     const style = {
@@ -153,7 +160,7 @@ export default function Form() {
               </div>
             )}
           </PlacesAutocomplete>
-          <label for='birthday'>Birthday</label>
+          <label htmlFor='birthday'>Birthday</label>
           <DatePicker
             id='birthday'
             disableFuture
@@ -165,7 +172,7 @@ export default function Form() {
             format="YYYY-MM-DD"
             value={dateValue}
           />
-          <label for='birthtime'>Birth time</label>
+          <label htmlFor='birthtime'>Birth time</label>
           <TimePicker
             id='birthtime'
             onChange={(value) => {
@@ -180,6 +187,7 @@ export default function Form() {
             submit
           </button>
         </FormControl>
+        {img64 != null && <img src = {`data:image;base64,${img64}`} alt="" />}
       </div>
     </LocalizationProvider>
   );
