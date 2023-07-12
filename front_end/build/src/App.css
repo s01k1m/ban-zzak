@@ -64,7 +64,7 @@ p.content {
   font-size: 50px;
   left: -120px; 
   top: -40px;
-  animation: content 4s infinite;
+  animation: content 4s forwards;
 
 }
 
@@ -132,7 +132,7 @@ p.content {
 
 #formWrapper{
   width: 400px;
-  height: 700px;
+  height: 90vh;
   background-color: rgba(255, 255, 255, 0.6);
   position: relative;
   display: flex;
