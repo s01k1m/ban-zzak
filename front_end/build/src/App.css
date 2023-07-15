@@ -4,17 +4,18 @@
   position: relative;
   display: flex;
   height: 100vh;
-  min-height: 667px;
+  width: 100vw;
   overflow: hidden;
   align-items: center;
   justify-content: center;
   background: linear-gradient(#000000, #041b44);
-  /* padding-top: 120px; */
   box-sizing: border-box;
   color: rgb(255, 255, 255);
-
 }
 
+.wrapper {
+  position: relative;
+}
 
 /* 별 */
 
@@ -58,79 +59,104 @@
 100% {opacity: 0.2;}
 }
 
-p.content {
-  position: relative;
-  /* shape-image-threshold: .2; */
-  font-size: 50px;
-  left: -120px; 
-  top: -40px;
-  animation: content 4s forwards;
 
+/* 메인 글자 */
+
+.content {
+  position: absolute;
+  font-size: 50px;
+  top: 50%;
+  left: 50%; /* 초기 위치 설정 */
+  transform: translate(-50%, -50%); /* 가운데정렬 */
+  animation: moveContent 2s forwards;
 }
 
-@keyframes content {
+@keyframes moveContent {
   from {
-    left: -120px; 
-    top: -40px;
+    /* 시작 위치 설정 */
   }
 
   to {
-    left:0px;
- }
+    left: 320px; /* 최종 위치 설정 */
+  }
 }
+
+
+/* 지구 */
 
 #earth {
-  float: left;
+  position: absolute; /* 위치 지정을 위해 추가 */
   width: 500px;
   z-index: 200;
-  shape-margin: 0;
-  shape-outside: circle();
+  top: 50%;
+  left: 50%; /* 초기 위치 설정 */
+  transform: translate(-50%, -50%);/* 가운데정렬 */
+  /* animation: moveEarth 4s forwards; */
 }
 
-.show{
+@keyframes moveEarth {
+  from {
+      /* 시작 위치 설정 */
+  }
+
+  to {
+    left: -40px; /* 최종 위치 설정 */
+  }
 }
+
+/* 기타 */
+
+
 
 .not-show{
-    display : none;
+  display: none;
 }
+
+.remove{
+  animation: fadeOut 10s;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 
 .places-auto-complete{
   display:none;
 }
 
-
-
-
-/* .content::after {
-  content: "click!";
-  display: block;
-
-} */
-
-@media screen and (max-width: 420px) {
-.arrow {
-  left:10%;
-}
-}
-
-
-.arrow {
-	position: absolute;
-  margin: 0 auto;
-  top: 40%;
-  left: 30vw;
-  width: 20vh;
-  transform: rotate(40deg);
-  z-index: 100;
+/* form  */
+.componentForm {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 900;
 }
 
 
 .auto-list{
   position: absolute;
   z-index: 10;
+  width: 294px;
+  margin: 0 2px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 10px 5px 5px black;
 }
 
 #formWrapper{
+  top: 50%;
+  left: 50%; /* 초기 위치 설정 */
+  transform: translate(-50%, -50%); /* 가운데정렬 */
   width: 400px;
   height: 90vh;
   background-color: rgba(255, 255, 255, 0.6);
@@ -140,12 +166,13 @@ p.content {
   justify-content: center;
   border-radius: 10px;
   color: rgb(0, 0, 0);
+  z-index: 900;
 }
+
 
 .form{
   position: relative;
   width: 400px;
-
 }
 
 .form > button{
@@ -155,15 +182,13 @@ p.content {
   border: none;
 }
 
-
+.form > h1 {
+  position: absolute;
+  top: -150px;
+}
 
 .form label{
   margin: 10px 0;
   font-size: 20px;
+  font-weight: 900;
 }
-
-.form input#coordinates{
- width: 100%;
-
-}
-

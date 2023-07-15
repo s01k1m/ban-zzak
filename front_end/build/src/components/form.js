@@ -77,7 +77,7 @@ export default function Form() {
   // const handleTime = (event) => {
   //   setTimeValue(event.target.value);
   // };
-
+  const [imgFile, setImgFile] = React.useState("");
   // Combine the birthday and birth time to create JSON data to send to our backend API and Send it
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -108,6 +108,7 @@ export default function Form() {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div id='formWrapper'>
         <FormControl sx={{ mx: 'auto', p:1, width: 300 }} className="form">
+        <h1>강아지가 온<br/>⭐️을 찾아보세요</h1> 
           <span name="loading" className={show ? "show" : "not-show"}>
             당신의 위치를 가져오는 중..
           </span>
@@ -144,8 +145,9 @@ export default function Form() {
                   {suggestions.map((suggestion) => {
                     const style = {
                       // 선택되면
-                      backgroundColor: suggestion.active ? "#41b6e6" : "",
-                    };
+                      padding: "10px",
+                      backgroundColor: suggestion.active ? "#7895CB" : ""
+                    }
 
                     return (
                       <div
@@ -154,7 +156,7 @@ export default function Form() {
                       >
                         {suggestion.description}
                       </div>
-                    );
+                    )
                   })}
                 </div>
               </div>
@@ -182,6 +184,11 @@ export default function Form() {
             ampm={false}
             value={timeValue}
           />
+          <label for='dogPic'>Dog's Photo</label>
+          <input id='dogPic' type='file'
+              onChange={(e) => {
+                setImgFile(e.target.files[0])
+                console.log(e.target.files)}}/>
           <br></br>
           <button type="submit" onClick={handleSubmit}>
             submit
