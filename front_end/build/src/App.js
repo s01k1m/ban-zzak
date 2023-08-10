@@ -1,10 +1,8 @@
-import React from "react";
-import axios from 'axios';
-import './App.css'
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng
-} from "react-places-autocomplete";
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import Form from './components/form.js';
+import earth from './assets/earth.png';
+
 
 export default function App() {
   const [img64, setimg64] = React.useState("");
@@ -51,16 +49,8 @@ export default function App() {
     console.log('date:', dateValue)
   }
 
-  const [timeValue, setTimeValue] = React.useState('')
-  const when = dateValue+' '+timeValue
 
 
-
-
-
-  const handleTime = (event) => {
-    setTimeValue(event.target.value)
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -133,6 +123,8 @@ export default function App() {
       <button type="submit" onClick={handleSubmit}>submit</button>
       </form>
       {img64 != null && <img src = {`data:image;base64,${img64}`} alt="" />}
+
+
     </div>
   );
 }
